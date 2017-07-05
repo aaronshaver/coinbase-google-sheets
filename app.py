@@ -79,9 +79,12 @@ def main():
         myBody = {u'range': u'Sheet1!C1:C2', u'values': [[timestamp],
                   [price]]}
         rangeOutput = 'Sheet1!C1:C2'
-        res = service.spreadsheets().values().update(
-            spreadsheetId=spreadsheetId, range=rangeOutput,
-            valueInputOption='RAW', body=myBody).execute()
+        try:
+            res = service.spreadsheets().values().update(
+                spreadsheetId=spreadsheetId, range=rangeOutput,
+                valueInputOption='RAW', body=myBody).execute()
+        except HttpError as e:
+            print("HTTP error; Google's service may be unavailable at the moment")
         time.sleep(10)
 
 
