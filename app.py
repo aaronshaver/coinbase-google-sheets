@@ -86,7 +86,7 @@ def main():
                 valueInputOption='RAW', body=myBody).execute()
         except HttpError as e:
             print("HTTP error; Google's service may be unavailable at the moment")
-        time.sleep(10)
+        time.sleep(60)
 
 
 if __name__ == '__main__':
