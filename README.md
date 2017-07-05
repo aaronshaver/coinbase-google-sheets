@@ -13,4 +13,5 @@ the same arguments to get it working
 ~/.credentials/sheets.googleapis.com-python-quickstart.json` to start fresh
 4. python3 app.py
 
-
+![Screenshot of Google Sheets example profit loss
+tracker](spreadsheet_example.png)
