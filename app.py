@@ -71,7 +71,7 @@ def main():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1eGetefSn-a8XXjH9i5aTahCVDkFc7R_PkEjjWrrasvU'
+    spreadsheetId = 'just-an-example ... update-this'
     while True:
         timestamp = str(datetime.datetime.now())
         price = get_eth_usd_sell_price()
