@@ -1,5 +1,8 @@
 # coinbase-google-sheets
+
 Grabs latest Ethereum sell price off Coinbase, puts into a Google Sheets document
+
+This app will do an update every 60 seconds. Coinbase's API seems to update once every 60 seconds.
 
 ## Installation
 
