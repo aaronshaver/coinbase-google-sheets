@@ -13,7 +13,8 @@ the same arguments to get it working
     * Note: when troubleshooting, it's handy to do `rm
 ~/.credentials/sheets.googleapis.com-python-quickstart.json` to start fresh
 
-4. python3 app.py
+4. Update the spreadsheet ID in the .py file to match the one you want to target
+5. python3 app.py
 
 ![Screenshot of Google Sheets example profit loss
 tracker](spreadsheet_example.png)
