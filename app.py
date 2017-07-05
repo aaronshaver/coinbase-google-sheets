@@ -8,6 +8,7 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 import requests
+from googleapiclient.errors import HttpError
 
 
 try:
