@@ -73,24 +73,25 @@ def main():
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
-    service = discovery.build('sheets', 'v4', http=http,
-                              discoveryServiceUrl=discoveryUrl)
 
     spreadsheet_id = flags.sheet_id
+    range_output = 'Sheet1!C1:C2'
+
     while True:
-        timestamp = str(datetime.datetime.now())
-        price = get_eth_usd_sell_price()
-        print(timestamp, price)
-        myBody = {u'range': u'Sheet1!C1:C2', u'values': [[timestamp],
-                  [price]]}
-        rangeOutput = 'Sheet1!C1:C2'
         try:
+            timestamp = str(datetime.datetime.now())
+            price = get_eth_usd_sell_price()
+            print(timestamp, price)
+            myBody = {u'range': u'Sheet1!C1:C2', u'values': [[timestamp],
+                      [price]]}
+            service = discovery.build('sheets', 'v4', http=http,
+                discoveryServiceUrl=discoveryUrl)
             res = service.spreadsheets().values().update(
-                spreadsheetId=spreadsheet_id, range=rangeOutput,
+                spreadsheetId=spreadsheet_id, range=range_output,
                 valueInputOption='RAW', body=myBody).execute()
         except Exception as e:
-            print("An error occurred; maybe Google's service is unavailable"
-                  "at the moment, or your connection was reset.")
+            print("An error occurred, most likely a network issue with Google"
+                  " or Coinbase or your connection")
             print(e)
         time.sleep(60)
 

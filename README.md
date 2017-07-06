@@ -1,6 +1,7 @@
 # coinbase-google-sheets
 
-Grabs latest Ethereum sell price off Coinbase, puts into a Google Sheets document
+Grabs latest Ethereum sell price off Coinbase, puts into a Google Sheets
+document along with a datetime stamp
 
 This app will do an update every 60 seconds. Coinbase's API seems to update once every 60 seconds.
 
@@ -15,6 +16,8 @@ This app will do an update every 60 seconds. Coinbase's API seems to update once
 the same arguments to get it working
     * Note: when troubleshooting, it's handy to do `rm
 ~/.credentials/sheets.googleapis.com-python-quickstart.json` to start fresh
+3. Update the range_output variable in app.py to the cell(s) you'd like to
+update
 4. python3 app.py --sheet_id=YourSheetId
 
 (the sheet ID is in the URL in your docs.google.com document -- it'll be after
