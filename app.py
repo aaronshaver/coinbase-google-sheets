@@ -8,11 +8,16 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 import requests
+from googleapiclient.errors import HttpError
 
 
 try:
     import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+    parser = argparse.ArgumentParser(parents=[tools.argparser])
+    parser.add_argument('-s', '--sheet_id',
+                        help='ID of the Google Sheets document to update',
+                        required=True)
+    flags = parser.parse_args()
 except ImportError:
     flags = None
 
@@ -71,7 +76,7 @@ def main():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1eGetefSn-a8XXjH9i5aTahCVDkFc7R_PkEjjWrrasvU'
+    spreadsheet_id = flags.sheet_id
     while True:
         timestamp = str(datetime.datetime.now())
         price = get_eth_usd_sell_price()
@@ -79,10 +84,15 @@ def main():
         myBody = {u'range': u'Sheet1!C1:C2', u'values': [[timestamp],
                   [price]]}
         rangeOutput = 'Sheet1!C1:C2'
-        res = service.spreadsheets().values().update(
-            spreadsheetId=spreadsheetId, range=rangeOutput,
-            valueInputOption='RAW', body=myBody).execute()
-        time.sleep(10)
+        try:
+            res = service.spreadsheets().values().update(
+                spreadsheetId=spreadsheet_id, range=rangeOutput,
+                valueInputOption='RAW', body=myBody).execute()
+        except Exception as e:
+            print("An error occurred; maybe Google's service is unavailable"
+                  "at the moment, or your connection was reset.")
+            print(e)
+        time.sleep(60)
 
 
 if __name__ == '__main__':
